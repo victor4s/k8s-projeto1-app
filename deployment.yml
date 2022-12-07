@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - image: victor4s/k8s-projeto-database:1.0
+        imagePullPolicy: Always
+        name: mysql
+        ports:
+          - containerPort: 3306
+            name: mysql
+        volumeMounts:
+        - name: mysql-local-database
+          mountPath: /var/lib/mysql/
+      volumes:
+      - name: mysql-local-database
+        hostPath:
+          path: /mysql_database
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php
+  labels:
+    app: php
+specs:
+  replicas: 6
+  selector:
+    matchLabels:
+      app: php
+  template:
+    metadata:
+    labels:
+      app: php
+    spec:
+      containers:
+      - name: php
+        image: victor4s/k8s-projeto-backend:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80

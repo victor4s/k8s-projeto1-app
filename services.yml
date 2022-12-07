@@ -17,9 +17,8 @@ kind: Service
 metadata:
   name: mysql-connection
 spec:
-  selector:
-    app: mysql-connection
   ports:
-    - port: 3306
-    selector: mysql
+  - port: 3306
+  selector:
+    app: mysql
   clusterIP: None

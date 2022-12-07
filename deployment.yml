@@ -16,15 +16,15 @@ spec:
         imagePullPolicy: Always
         name: mysql
         ports:
-          - containerPort: 3306
-            name: mysql
+        - containerPort: 3306
+          name: mysql
         volumeMounts:
-        - name: mysql-local-database
+        - name: local
           mountPath: /var/lib/mysql/
       volumes:
-      - name: mysql-local-database
+      - name: local
         hostPath:
-          path: /mysql_database
+          path: /mysql_database/
 
 ---
 
@@ -34,15 +34,15 @@ metadata:
   name: php
   labels:
     app: php
-specs:
+spec:
   replicas: 6
   selector:
     matchLabels:
       app: php
   template:
     metadata:
-    labels:
-      app: php
+      labels:
+        app: php
     spec:
       containers:
       - name: php

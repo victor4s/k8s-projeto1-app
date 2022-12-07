@@ -24,7 +24,7 @@ spec:
       volumes:
       - name: local
         hostPath:
-          path: /mysql_database/
+          path: /mysqldb/
 
 ---
 
